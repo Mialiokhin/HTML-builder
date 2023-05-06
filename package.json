@@ -7,7 +7,8 @@
     "lint": "eslint . --ext .js",
     "lint-fix": "eslint . --fix --ext .js",
     "01": "node 01-read-file",
-    "02": "node 02-write-file"
+    "02": "node 02-write-file",
+    "03": "node 03-files-in-folder"
   },
   "author": "evgeniimal",
   "license": "ISC",
