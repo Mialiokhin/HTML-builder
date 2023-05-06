@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .js",
     "lint-fix": "eslint . --fix --ext .js",
-    "01": "node 01-read-file"
+    "01": "node 01-read-file",
+    "02": "node 02-write-file"
   },
   "author": "evgeniimal",
   "license": "ISC",
