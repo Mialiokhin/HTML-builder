@@ -11,7 +11,7 @@ fsPromises.readdir(path.join(__dirname, 'secret-folder'), {
       const fileExt = path.extname(filePath);
       fsPromises.stat(filePath)
         .then(res => {
-          console.log(`${fileName.replace(fileExt, '')} - ${fileExt.replace('.', '')} - ${Number(res.size / 2000)}kb`);
+          console.log(`${fileName.replace(fileExt, '')} - ${fileExt.replace('.', '')} - ${Number(res.size / 1024)}kb`);
         });
     }
   });
