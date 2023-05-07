@@ -97,7 +97,7 @@ fsPromises.readdir(path.join(__dirname, 'components'), {
     }
   }
   templateFile.push(lines);
-// записываем index.html
+  // записываем index.html
   fs.writeFile(
     path.join(__dirname, 'project-dist', 'index.html'),
     `${lines.join('\n')}`, (err) => {
