@@ -171,29 +171,35 @@ async function copyFolder(srcDir, destDir) {
       });
 
       // Удаляем файлы и пустые директории из новой директории, которых нет в исходной директории
-      fs.readdir(destDir, {withFileTypes: true}, (err, files) => {
+      fs.readdir(destDir, {withFileTypes: true}, async (err, files) => {
         if (err) throw err;
 
-        files.forEach((file) => {
+        for (const file of files) {
           const destPath = path.join(destDir, file.name);
 
           // Если элемент является файлом
           if (file.isFile()) {
-            // Удаляем файл, если он не существует в исходной директории
-            if (!fs.existsSync(path.join(srcDir, file.name))) {
-              fs.unlink(destPath, (err) => {
-                if (err) throw err;
-              });
+            try {
+              // Проверяем, существует ли файл в исходной директории
+              await fs.promises.access(path.join(srcDir, file.name), fs.constants.F_OK);
+
+            } catch (err) {
+              // Удаляем файл, если он не существует в исходной директории
+              await fs.promises.unlink(destPath);
             }
           }
           // Если элемент является директорией
           else if (file.isDirectory()) {
-            // Рекурсивно удаляем поддиректорию, если она не существует в исходной директории
-            if (!fs.existsSync(path.join(srcDir, file.name))) {
-              deleteFolder(destPath);
+            try {
+              // Проверяем, существует ли директория в исходной директории
+              await fs.promises.access(path.join(srcDir, file.name), fs.constants.F_OK);
+
+            } catch (err) {
+              // Рекурсивно удаляем поддиректорию, если она не существует в исходной директории
+              await deleteFolder(destPath);
             }
           }
-        });
+        }
       });
     });
   });
